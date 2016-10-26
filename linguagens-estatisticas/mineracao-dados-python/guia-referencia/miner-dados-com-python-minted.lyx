@@ -1,0 +1,7918 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extbook
+\begin_preamble
+% --------- BEGIN PORTUGUESE CONFIG --------
+%encoding
+%--------------------------------------
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%--------------------------------------
+ 
+%Portuguese-specific commands
+%--------------------------------------
+%\usepackage[portuguese]{babel}
+%--------------------------------------
+ 
+%Hyphenation rules
+%--------------------------------------
+\usepackage{hyphenat}
+\hyphenation{mate-mática recu-perar}
+%--------------------------------------
+% --------- END PORTUGUESE CONFIG --------
+
+\usepackage[newfloat]{minted}
+\usepackage{caption}
+
+\newenvironment{code}{\captionsetup{type=listing}}{}
+\SetupFloatingEnvironment{listing}{name=Código-fonte}
+
+%\renewcommand\listingscaption{Código}
+
+
+%\usepackage{minted}
+\usemintedstyle{lovelace} % - lovelace
+
+\usepackage{enumitem} % necessário para setitemize
+
+\setitemize[0]{leftmargin=15pt,itemindent=0pt,labelwidth=10pt}
+\setenumerate[0]{leftmargin=15pt,itemindent=0pt,labelwidth=10pt}
+
+% evitar erro com comando nobreakspace usando o ambiente T1
+\DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ }
+
+% -------- espaço entre o texto e o codigo
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{minted}{\vspace{-.7cm}}
+\AfterEndEnvironment{minted}{\vspace{-.3cm}}
+\end_preamble
+\options procnames
+\use_default_options true
+\maintain_unincluded_children false
+\language brazilian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "palatino" "Times New Roman"
+\font_sans "helvet" "Helvetica Neue"
+\font_typewriter "default" "Mensch"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command bibtex
+\index_command default
+\float_placement h
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Mineração de dados com Python"
+\pdf_author "Alan Carlos, Francisco Moura, Marcelo Stefanelli, Robert Carlos"
+\pdf_subject "Ciência de dados"
+\pdf_keywords "python, mineração, dados, ciência de dados"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type numerical
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 1.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\noindent
+
+\series bold
+Mineração de dados
+\begin_inset Newline newline
+\end_inset
+
+Descoberta e Visualização de Padrões com Python
+\series default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename figuras/01-capa-apostila-python.png
+	width 100col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+\noindent
+Alan Carlos, Francisco Moura, Marcelo Stefanelli, Robert Carlos
+\end_layout
+
+\begin_layout Date
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Tradução e adaptação do original Data Mining - Discovering and Visualizing
+ Patterns with Python, de Giuseppe Vettigli 
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Vettigli2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Introdução
+\end_layout
+
+\begin_layout Standard
+\noindent
+Mineração de dados ou Data Mining é a extração de informação implícita,
+ previamente desconhecida e potencialmente útil a partir de dados.
+ Ela é aplicada numa grande variedade de domínios e suas técnicas tornaram-se
+ fundamentais para diversas aplicações.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Este guia de referência aborda as ferramentas utilizadas na prática de Mineração
+ de Dados para descobrir e descrever padrões estruturais em dados usando
+ a linguagem de programação Python.
+ Nos últimos anos, Python vendo sendo utilizada cada vez mais para o desenvolvim
+ento de aplicações centrada em dados, graças ao suporte de uma grande comunidade
+ de computação científica e ao aumento do número de bibliotecas disponíveis
+ para análise de dados.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Em particular, será visto: 
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Importar e Visualizar de dados 
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Classificar e Agrupar dados (Cluster) 
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Descobrir relações nos dados utilizando medidas de regressão e correlação
+ 
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Reduzir a dimensão dos dados, a fim de comprimir e visualizar as informações
+ que ele traz 
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Analisar dados estruturados 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Cada tópico será coberto por exemplos de código baseado em quatro das principais
+ bibliotecas Python para análise e manipulação: SciPy (NumPy, Matplotlib)
+ 
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "SciPy"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+, scikit-learn 
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "scikit-learn"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ e NetworkX 
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "hagberg-2008-exploring"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+\noindent
+Ambiente Python
+\end_layout
+
+\begin_layout Standard
+\noindent
+Para executar os códigos-fontes presentes neste guia, é necessário que o
+ ambiente de execução esteja com as versões mais recentes de Python, podendo
+ ser um ambiente configurado com Python 2 ou Python 3.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+No momento em que este guia de referência estava sendo escrito, os códigos-fonte
+s foram testados nas seguintes versões de Python:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+
+\series bold
+Python 2
+\series default
+: versão 2.7.12
+\end_layout
+
+\begin_layout Itemize
+\noindent
+
+\series bold
+Python 3
+\series default
+: versão 3.5.2
+\end_layout
+
+\begin_layout Standard
+\noindent
+Abaixo, são listadas as bibliotecas necessárias, bem como as versões utilizadas
+ neste guia:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Nome da biblioteca
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+Versão
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+NumPy
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.11.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scikit-learn
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.18
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+scipy
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.18.1
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Matplotlib
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.5.3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+NetworkX
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.11
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Para configurar o ambiente em seu sistema operacional, consulte a documentação
+ no site do 
+\begin_inset CommandInset href
+LatexCommand href
+name "Python (www.python.org)"
+target "www.python.org"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+No apêndice nós mostramos como instalar as bibliotecas mencionadas neste
+ guia.
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Executando o código-fonte
+\end_layout
+
+\begin_layout Standard
+\noindent
+Os exemplos de código poderão ser copiados e executados interativamente
+ no terminal interpretador (console de comandos) do Python, ou executados
+ a partir da invocação de arquivos com extensão 
+\series bold
+.py
+\series default
+ contendo os comandos.
+ O código-fonte também é disponibilizado no apêndice deste guia de referência
+ de modo que poderá ser copiado e salvo em arquivos com extensão .
+\series bold
+py
+\series default
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+\noindent
+Github
+\end_layout
+
+\begin_layout Standard
+\noindent
+Este guia, juntamente com o código-fonte, é disponibilizado no repositório
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "Github - https://github.com/franciscomoura/data-science-and-bigdata"
+target "https://github.com/franciscomoura/data-science-and-bigdata"
+
+\end_inset
+
+.
+ Acesse o item 
+\series bold
+Mineração de dados com Python
+\series default
+.
+\end_layout
+
+\begin_layout Section*
+\noindent
+Conjunto de dados Íris
+\end_layout
+
+\begin_layout Standard
+\noindent
+Ao longo do guia, utilizaremos o conjunto de dados Íris 
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Lichman:2013"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O conjunto de dados Íris é um conjunto de dados multivariado, que igualmente
+ divide 150 amostras da flor iris em 3 classes (Setosa, Versicolor e Virgínica).
+ Cada classe possui 50 ocorrências.
+ Cada ocorrência tem quatro características (ou variáveis) sendo, o comprimento
+ e a largura da sépala e pétala, em centímetros e a última coluna contém
+ a descrição da classe.
+ Ao todo, o conjunto de dados tem 5 colunas.
+ As primeiras 4 colunas contêm os valores das características, enquanto
+ que a última coluna representa a classe das amostras (Iris Setosa, Iris
+ Versicolour, Iris Virginica).
+ Uma classe é linearmente separada das outras duas; as duas últimas não
+ são linearmente separadas uma das outras.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\series bold
+Informações sobre os atributos no arquivo:
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\series bold
+\shape italic
+Coluna 1
+\series default
+\shape default
+.
+ sepal length in cm (comprimento da sépala, em centímetros)
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\series bold
+\shape italic
+Coluna 2
+\series default
+\shape default
+.
+ sepal width in cm (largura da sépala, em centímetros)
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\series bold
+\shape italic
+Coluna 3
+\series default
+\shape default
+.
+ petal length in cm (comprimento da pétala, em centímetros)
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\series bold
+\shape italic
+Coluna 4
+\series default
+\shape default
+.
+ petal width in cm (largura da pétala, em centímetros)
+\end_layout
+
+\begin_layout Standard
+\noindent
+
+\series bold
+\shape italic
+Coluna 5
+\series default
+\shape default
+.
+ class: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+-- Iris Setosa 
+\end_layout
+
+\begin_layout Standard
+\noindent
+-- Iris Versicolour 
+\end_layout
+
+\begin_layout Standard
+\noindent
+-- Iris Virginica
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset CommandInset href
+LatexCommand href
+name "Iris dataset - https://archive.ics.uci.edu/ml/datasets/Iris"
+target "https://archive.ics.uci.edu/ml/datasets/Iris"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Parte 1 - Importação e Visualização de dados
+\end_layout
+
+\begin_layout Standard
+\noindent
+Normalmente, o primeiro passo de uma análise de dados consiste em obter
+ os dados e realizar a carga destes dados no nosso ambiente de trabalho.
+ Facilmente podemos fazer o download de dados usando a seguinte capacidade
+ do Python:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=1, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# -*- coding: utf-8 -*-
+\end_layout
+
+\begin_layout Plain Layout
+
+"""
+\end_layout
+
+\begin_layout Plain Layout
+
+O arquivo iris.csv será gravado no mesmo diretório do arquivo-fonte
+\end_layout
+
+\begin_layout Plain Layout
+
+"""
+\end_layout
+
+\begin_layout Plain Layout
+
+"""
+\end_layout
+
+\begin_layout Plain Layout
+
+Workarround para executar em ambiente python 2 e python 3
+\end_layout
+
+\begin_layout Plain Layout
+
+"""
+\end_layout
+
+\begin_layout Plain Layout
+
+try:
+\end_layout
+
+\begin_layout Plain Layout
+
+    import urllib.request as url_lib
+\end_layout
+
+\begin_layout Plain Layout
+
+except ImportError:
+\end_layout
+
+\begin_layout Plain Layout
+
+    import urllib2 as url_lib
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+url = 'http://aima.cs.berkeley.edu/data/iris.csv'
+\end_layout
+
+\begin_layout Plain Layout
+
+remote_file = url_lib.urlopen(url)
+\end_layout
+
+\begin_layout Plain Layout
+
+with open('iris.csv', 'wb') as local_file:
+\end_layout
+
+\begin_layout Plain Layout
+
+    local_file.write(remote_file.read())
+\end_layout
+
+\begin_layout Plain Layout
+
+local_file.close()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Download do conjunto de dados}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{code:1}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+No código-fonte acima foi utilizada a biblioteca 
+\series bold
+urllib2
+\series default
+ ou a 
+\series bold
+urllib.request
+\series default
+ (dependente do ambiente de execução, se Python 2 ou Python 3) para acessar
+ o arquivo no site da Universidade de Berkley e salvá-lo para o disco usando
+ os métodos do objeto 
+\series bold
+File
+\series default
+ fornecido pela biblioteca padrão do Python.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O arquivo contém o conjunto de dados Íris.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O conjunto de dados é armazenado no formato CSV (valores separados por vírgula).
+ É conveniente analisar o arquivo CSV (fazer o parse) e armazenar as informações
+ que ele contém usando uma estrutura de dados mais apropriada.
+ O CSV pode ser facilmente analisado utilizando a função 
+\series bold
+\shape italic
+genfromtxt
+\series default
+\shape default
+ da biblioteca 
+\series bold
+NumPy
+\series default
+:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=1, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# -*- coding: utf-8 -*-
+\end_layout
+
+\begin_layout Plain Layout
+
+"""
+\end_layout
+
+\begin_layout Plain Layout
+
+Executar no mesmo diretório do arquivo iris.csv
+\end_layout
+
+\begin_layout Plain Layout
+
+"""
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+# lê as primeiras 4 colunas
+\end_layout
+
+\begin_layout Plain Layout
+
+data = np.genfromtxt('iris.csv', delimiter=',', usecols=(0,1,2,3))
+\end_layout
+
+\begin_layout Plain Layout
+
+# lê a quinta coluna(última)
+\end_layout
+
+\begin_layout Plain Layout
+
+target_names = np.genfromtxt('iris.csv', delimiter=',', usecols=(4), dtype=str)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Carga do conjunto de dados}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{code:2}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Neste trecho de código-fonte , foi criada uma matriz com as características
+ das plantas (
+\shape italic
+data
+\shape default
+) e um vector que contém os nomes das classes dessas plantas (
+\shape italic
+target_names
+\shape default
+).
+ Podemos confirmar o tamanho do nosso conjunto de dados olhando a forma
+ das estruturas de dados que nós carregamos, usando o atributo 
+\series bold
+\shape italic
+shape
+\series default
+\shape default
+:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(data.shape)
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: (150, 4)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(target_names.shape)
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: (150,)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Inspencionando o conjunto de dados}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{code:2}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Podemos inspecionar o elemento 
+\shape italic
+target_names
+\shape default
+ para saber quantas classes ele possui e os seus nomes:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# constrói uma coleção contendo elementos únicos
+\end_layout
+
+\begin_layout Plain Layout
+
+print(set(target_names))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída python 2: set(['setosa', 'versicolor', 'virginica'])
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída python 3: {'virginica', 'versicolor', 'setosa'}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Inspencionando o conjunto de dados}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{code:2}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Uma tarefa importante quando se trabalha com novos dados é tentar entender
+ quais informações estes dados contém e como eles estão estruturados.
+ A visualização ajuda-nos a explorar esta informação graficamente de modo
+ a ganhar a compreensão e visão sobre os dados.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Usando os recursos de plotagem (funções 
+\series bold
+\shape italic
+plot
+\series default
+\shape default
+ e 
+\series bold
+\shape italic
+show
+\series default
+\shape default
+) da biblioteca 
+\series bold
+Pylab
+\series default
+ (que é uma interface para 
+\series bold
+Matplotlib
+\series default
+) podemos construir um gráfico de dispersão bi-dimensional que nos permite
+ analisar duas dimensões do conjunto de dados, traçando os valores de um
+ recurso contra os valores do outro:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import pylab as pl
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[target_names == 'setosa', 2], data[target_names == 'setosa',
+ 3], 'bo')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[target_names == 'versicolor', 2], data[target_names == 'versicolor',
+ 3], 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[target_names == 'virginica', 2], data[target_names == 'virginica',
+ 3], 'go')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.ylabel('Largura da petala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlabel('Comprimento da petala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.axis([0.5, 7, 0, 3])
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Visualização dos dados}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{code:2}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O código-fonte acima usa a terceira e a quarta dimensão do conjunto de dados
+ (comprimento e largura da pétala) e o resultado é mostrado na figura 1.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+No gráfico da figura 1 temos 150 pontos e as cores representam as classe
+ das flores; os pontos azuis representam as amostras que pertencem à espécie
+ setosa, os vermelhos representam à espécie versicolor e os verdes representam
+ à espécie virginica.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename figuras/02-dispersao-petala.png
+	width 100col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Gráfico de dispersão do comprimento e largura da sépala
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Outra forma comum de olharmos para os dados é traçar o histograma das caracterís
+ticas individuais.
+ Neste caso, uma vez que os dados são divididos em três classes, podemos
+ comparar as distribuições das características que estamos analisando de
+ cada classe.
+ Com o código-fonte abaixo podemos traçar a distribuição da primeira característ
+ica de nossos dados (comprimento da sépala) para cada classe:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import pylab as pl
+\end_layout
+
+\begin_layout Plain Layout
+
+xmin = min(data[:, 0])
+\end_layout
+
+\begin_layout Plain Layout
+
+xmax = max(data[:, 0])
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.figure()
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.subplot(411) # distribuição da classe setosa (primeira, no topo)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.hist(data[target_names == 'setosa', 0], color='b', alpha=.7)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlim(xmin, xmax)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlabel('Comprimento da sepala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.ylabel('Ocorrencias')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.subplot(412) # distribuição da classe setosa versicolor class (segunda)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.hist(data[target_names == 'versicolor', 0], color='r', alpha=.7)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlim(xmin, xmax)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlabel('Comprimento da sepala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.ylabel('Ocorrencias')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.subplot(413) # distribuição da classe setosa virginica class (terceira)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.hist(data[target_names == 'virginica', 0], color='g', alpha=.7)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlim(xmin, xmax)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlabel('Comprimento da sepala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.ylabel('Ocorrencias')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.subplot(414) # histograma global (quarto, último)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.hist(data[:, 0], color='y', alpha=.7)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlim(xmin, xmax)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlabel('Comprimento da sepala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.ylabel('Ocorrencias')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Histograma do comprimento da sépala}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-04}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+E o resultado pode ser visualizado no histograma da figura 2.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename figuras/03-histograma-sepala.png
+	width 100col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Histograma do Comprimento da sépala - cm x Número de ocorrências
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Olhando para os histogramas acima, podemos entender algumas características
+ que poderiam nos ajudar a distinguir os dados de acordo com as classes
+ que temos.
+ Por exemplo, pode-se observar que, em média, as plantas íris setosa têm
+ um comprimento de sépala menor em comparação com as plantas íris virginica.
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Parte 2 - Classificação
+\end_layout
+
+\begin_layout Standard
+\noindent
+Classificação é uma função de mineração de dados que indica a classe que
+ um determinado registro pertence.
+ Os modelos que implementam esta função são chamados de classificadores.
+ Há dois passos básicos para usar um classificador: treinamento e classificação.
+ O treinamento é o processo de obtenção de dados que são conhecidos por
+ pertencer à classes específicas e a criação de um classificador com base
+ nos dados conhecidos.
+ Classificação é o processo de tomar um classificador construído com o conjunto
+ de dados de treinamento e executá-lo em dados desconhecidos para determinar
+ a associação de classe para as amostras desconhecidas.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A biblioteca 
+\series bold
+scikit-learn
+\series default
+ contém a implementação de muitos modelos para a classificação e nesta seção
+ veremos como usar o 
+\series bold
+\shape italic
+Gaussian Naive Bayes
+\series default
+\shape default
+, a fim de identificar as plantas íris como setosa, versicolor ou virginica,
+ usando o conjunto de dados da primeira parte.
+ Para este fim, vamos converter o vetor de strings que contém a classe em
+ números inteiros:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# converter o vetor de strings que contêm a classe em números inteiros
+\end_layout
+
+\begin_layout Plain Layout
+
+target = np.zeros(len(target_names), dtype=np.int)
+\end_layout
+
+\begin_layout Plain Layout
+
+target[target_names == 'setosa'] = 0
+\end_layout
+
+\begin_layout Plain Layout
+
+target[target_names == 'versicolor'] = 1
+\end_layout
+
+\begin_layout Plain Layout
+
+target[target_names == 'virginica'] = 2
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Classificação dos dados}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Agora estamos prontos para instanciar e treinar nosso classificador:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.naive_bayes import GaussianNB
+\end_layout
+
+\begin_layout Plain Layout
+
+# instanciar e treinar o classificador
+\end_layout
+
+\begin_layout Plain Layout
+
+classifier = GaussianNB()
+\end_layout
+
+\begin_layout Plain Layout
+
+# treinar no conjunto de dados iris
+\end_layout
+
+\begin_layout Plain Layout
+
+classifier.fit(data, target)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A classificação pode ser feita com o método de predição e é fácil testá-lo
+ com uma amostra:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(classifier.predict(data[0].reshape(1, -1)))
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: [1]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(target[0])
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: 1
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Neste caso, a classe prevista é igual a correta (setosa), mas é importante
+ avaliar o classificador em uma gama mais ampla de amostras e testá-lo com
+ dados não usados no processo de treinamento.
+ Para este fim, dividir os dados em conjunto de treinamento e conjunto de
+ teste, colhendo amostras aleatoriamente da base de dados original.
+ Vamos usar o primeiro conjunto para treinar o classificador e o segundo
+ para testar o classificador.
+ A função 
+\series bold
+\shape italic
+train_test_split
+\series default
+\shape default
+ pode fazer isso por nós:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# dividir o conjunto de dados em amostras de treinamento e teste
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.model_selection import train_test_split
+\end_layout
+
+\begin_layout Plain Layout
+
+data_train, data_test, target_train, target_test = train_test_split(data,
+ target, test_size=0.4, random_state=0)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O conjunto de dados foi dividido e o tamanho do conjunto de ensaio (teste)
+ é de 40% do tamanho do original como especificado com parâmetro da função
+ 
+\shape italic
+test_size
+\shape default
+.
+ Com esses dados podemos novamente treinar o classificador e imprimir a
+ sua precisão:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# treinar o classificador com os conjuntos de treino específicos
+\end_layout
+
+\begin_layout Plain Layout
+
+classifier.fit(data_train, target_train) # treino
+\end_layout
+
+\begin_layout Plain Layout
+
+print(classifier.score(data_test, target_test)) # teste
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: 0.93333333333333335
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Neste caso, temos 93% de precisão.
+ A precisão de um classificador é determinado pelo número de amostras classifica
+das correctamente dividido pelo número total de amostras classificadas.
+ Em outras palavras, isto significa que é a proporção do número total de
+ previsões que eram correctos.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Outra ferramenta para estimar o desempenho de um classificador é a matriz
+ de confusão.
+ Nesta matriz cada coluna representa as instâncias de uma classe prevista,
+ enquanto cada linha representa as instâncias de uma classe real.
+ Usando as métricas de módulo, é muito fácil de calcular e imprimir a matriz:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# matriz de confusão
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.metrics import confusion_matrix
+\end_layout
+
+\begin_layout Plain Layout
+
+print(confusion_matrix(classifier.predict(data_test),target_test))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Saída: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\begin{array}{ccc}
+[[16 & 0 & 0]\\{}
+[0 & 23 & 4]\\{}
+[0 & 0 & 17]]
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Nesta matriz de confusão, podemos ver que todas as flores Iris setosa e
+ virginica foram classificadas corretamente, mas, das reais 27 flores Iris
+ versicolor, o sistema previu que 4 eram virginica.
+ Se levarmos em conta que todas as estimativas correctas estão localizadas
+ na diagonal da tabela, que é fácil de inspecionar visualmente a tabela
+ de erros, uma vez que estão representados pelos valores não nulos fora
+ da diagonal.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Uma função que nos dá um relatório completo sobre o desempenho do classificador
+ está também disponível:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+# relatório de classificação
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.metrics import classification_report
+\end_layout
+
+\begin_layout Plain Layout
+
+print(classification_report(classifier.predict(data_test), target_test, target_na
+mes=['setosa', 'versicolor', 'virginica']))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Gerando a seguinte saída:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="5">
+<features tabularvalignment="middle">
+<column alignment="right" valignment="top">
+<column alignment="right" valignment="top">
+<column alignment="right" valignment="top">
+<column alignment="right" valignment="top">
+<column alignment="right" valignment="top">
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+precision
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+recall
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+f1-score
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+support
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+setosa
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+versicolor
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.85
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.92
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+27
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+virginica
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.81
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.00
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.89
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+17
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+av / total
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.95
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.93
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.93
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="right" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+60
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Aqui está um resumo das medidas utilizadas pelo relatório:
+\end_layout
+
+\begin_layout Itemize
+\noindent
+
+\series bold
+\shape italic
+Precision
+\shape default
+ (precisão)
+\series default
+: a proporção de casos positivos previstos que estavam corretos (A medida
+ de precisão mensura a quantidade de casos que foram corretamente classificados
+ como positivos dentre todos os casos que foram julgados como positivos
+ 
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "santos2014mineraccao"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+\noindent
+
+\series bold
+\shape italic
+Recall
+\shape default
+ (abrangência/cobertura/sensibilidade)
+\series default
+ (ou também 
+\shape italic
+true positive rate
+\shape default
+): a proporção de casos positivos que foram corretamente identificados (ao
+ contrário da precisão, é a relação entre a quantidade de casos que foram
+ corretamente classificados como positivos dentre todos os casos que são
+ realmente da classe de positivos 
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "santos2014mineraccao"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+\noindent
+
+\series bold
+\shape italic
+F1-Score
+\series default
+ 
+\shape default
+(
+\series bold
+medida F
+\series default
+): a média harmônica entre os valores de Precision e Recall.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+O suporte é simplesmente a quantidade de elementos da classe dada utilizada
+ para o teste.
+ No entanto, dividindo os dados, podemos reduzir o número de amostras que
+ podem ser utilizadas para o treinamento, e os resultados da avaliação podem
+ depender de uma escolha aleatória particular para o par (conjunto de treinament
+o, conjunto de teste).
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Para avaliar realmente um classificador e compará-lo com outros, nós temos
+ que usar um modelo de avaliação mais sofisticado como 
+\series bold
+\shape italic
+Cross Validation
+\series default
+\shape default
+ (Validação Cruzada).
+ A ideia por trás do modelo é simples: o dado é dividido em conjuntos de
+ treinamento e teste várias vezes consecutivas e o valor médio das contagens
+ da predição obtidos com os diferentes conjuntos consiste na avaliação do
+ classificador.
+ A biblioteca 
+\series bold
+scikit-learn
+\series default
+ nos fornece uma função para executar o modelo:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.model_selection import cross_val_score
+\end_layout
+
+\begin_layout Plain Layout
+
+# cross validation com 6 iterações 
+\end_layout
+
+\begin_layout Plain Layout
+
+scores = cross_val_score(classifier, data, target, cv=6)
+\end_layout
+
+\begin_layout Plain Layout
+
+print(scores)
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: [ 0.92592593  1.
+     0.91666667  0.91666667  0.95833333  1.
+   ]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Como podemos ver, a saída desta implementação é um vector que contém a precisão
+ obtida com cada iteração do modelo.
+ Podemos facilmente calcular a precisão média da seguinte forma: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(np.mean(scores))
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: 0.952932098765
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-05}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Parte 3 - Agrupamento (
+\shape italic
+Clustering
+\shape default
+)
+\end_layout
+
+\begin_layout Standard
+\noindent
+Muitas vezes não temos rótulos anexados aos dados que nos dizem a classe
+ das amostras; temos que analisar os dados, a fim de agrupa-los com base
+ em critérios de semelhança/similaridade onde grupos (clusters) são conjuntos
+ de amostras similares.
+ Este tipo de análise é chamado de análise não supervisionada de dados.
+ Uma das mais famosas ferramentas de agrupamento é o algoritmo k-médias
+ (k-means), que pode ser executado da seguinte forma:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.cluster import KMeans
+\end_layout
+
+\begin_layout Plain Layout
+
+# inicialização correta para o cluster mostrar o mesmo resultado a cada
+ execução
+\end_layout
+
+\begin_layout Plain Layout
+
+kmeans = KMeans(n_clusters=3, init="k-means++", random_state=3425)
+\end_layout
+
+\begin_layout Plain Layout
+
+kmeans.fit(data)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Agrupamento k-means}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O trecho de código acima executa o algoritmo e agrupa os dados em 3 
+\shape italic
+clusters
+\shape default
+ (conforme especificado pelo parâmetro 
+\shape italic
+n_clusters
+\shape default
+).
+ Agora podemos usar o modelo para identificar cada amostra em um dos 
+\shape italic
+clusters
+\shape default
+ (agrupamentos):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+clusters = kmeans.predict(data)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Identificação das amostras}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+E podemos avaliar os resultados de agrupamento (
+\shape italic
+clustering
+\shape default
+), comparando-os com os rótulos que já temos com a contagem da completude
+ e homogeneidade (
+\shape italic
+completeness and the homogeneity score
+\shape default
+):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.metrics import completeness_score, homogeneity_score
+\end_layout
+
+\begin_layout Plain Layout
+
+print(completeness_score(target, clusters))
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: 0.764986151449
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(homogeneity_score(target, clusters))
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: 0.751485402199
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Resultados do agrupamento}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A contagem da completude se aproxima de 1, quando a maioria dos pontos de
+ dados que são membros de uma determinada classe são elementos do mesmo
+ grupo, enquanto a contagem da homogeneidade se aproxima de 1, quando todos
+ os agrupamentos contêm apenas os dados que são membros de uma única classe.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+\bar under
+Definição:
+\end_layout
+
+\begin_layout Plain Layout
+Homogeneidade: cada 
+\shape italic
+cluster
+\shape default
+ contém apenas membros de uma única classe.
+\end_layout
+
+\begin_layout Plain Layout
+Completude: todos os membros de uma determinada classe são atribuídos ao
+ mesmo grupo.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "sckit-learn - http://scikit-learn.org/stable/modules/clustering.html"
+target "http://scikit-learn.org/stable/modules/clustering.html"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Também podemos visualizar o resultado do agrupamento e comparar as designações
+ com os rótulos reais visualmente:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import pylab as pl
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.figure()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.subplot(211)  # topo, figura com as classes reais
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[target == 0, 2], data[target == 0, 3], 'bo', alpha=.7)  # 0 setosa
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[target == 1, 2], data[target == 1, 3], 'ro', alpha=.7)  # 1 versicolo
+r
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[target == 2, 2], data[target == 2, 3], 'go', alpha=.7)  # 2 virginica
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlabel('Comprimento da petala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.ylabel('Largura da petala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.axis([0.5, 7, 0, 3])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.subplot(212)  # embaixo, figura com as classes atribuídas automaticamente
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[clusters == 0, 2], data[clusters == 0, 3], 'go', alpha=.7)  #
+ clusters 0 verginica
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[clusters == 1, 2], data[clusters == 1, 3], 'bo', alpha=.7)  #
+ clusters 1 setosa
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(data[clusters == 2, 2], data[clusters == 2, 3], 'ro', alpha=.7)  #
+ clusters 2 versicolor
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xlabel('Comprimento da petala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.ylabel('Largura da petala - cm')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.axis([0.5, 7, 0, 3])
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Visualização do agrupamento}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O gráfico mostra o resultado:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename figuras/04-k-means-k++.png
+	width 100col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Agrupamento k-means
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Observando o gráfico, vemos que o agrupamento da espécie  setosa (cor azul)
+ foi completamente identificado por k-means, enquanto os outros dois agrupamento
+s foram identificados com alguns erros.
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Parte 4 - Regressão
+\end_layout
+
+\begin_layout Standard
+\noindent
+A regressão é um método para investigar as relações funcionais entre as
+ variáveis que podem ser usadas para fazer predições.
+ Consideremos o caso em que temos duas variáveis, uma é considerada para
+ ser explicativa, e a outra é considerada para ser um dependente.
+ Queremos descrever a relação entre as variáveis usando um modelo; Quando
+ esta relação é expressa com uma linha temos a regressão linear.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+De modo a aplicar a regressão linear, construímos um conjunto de dados sintético
+ composto tal como descrito acima:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=1, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+x = np.random.rand(40,1) # variável explicativa
+\end_layout
+
+\begin_layout Plain Layout
+
+y = x*x*x+np.random.rand(40,1)/5 # variável dependente
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Agora podemos usar o modelo de LinearRegression que encontramos no módulo
+ sklearn.linear_model.
+ Este modelo calcula a linha de melhor ajuste para os dados observados,
+ minimizando a soma dos quadrados dos desvios verticais a partir de cada
+ ponto de dados para a linha.
+ O uso é semelhante aos outros modelos implementados em sckit-learn que
+ foi visto previamente: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.linear_model import LinearRegression
+\end_layout
+
+\begin_layout Plain Layout
+
+linreg = LinearRegression()
+\end_layout
+
+\begin_layout Plain Layout
+
+linreg.fit(x,y)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Regressão linear}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+E podemos traçar esta linha ao longo dos pontos de dados reais para avaliar
+ o resultado:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+import pylab as pl
+\end_layout
+
+\begin_layout Plain Layout
+
+xx = np.linspace(0,1,40)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(x, y, 'o', xx, linreg.predict(np.matrix(xx).T),'--r')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A plotagem deve ser a seguinte:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename figuras/05-regression.png
+	width 75col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Regressão linear
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Neste gráfico podemos observar que a linha atravessa o centro de nossos
+ dados e nos permite identificar a tendência crescente.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Também podemos quantificar como o modelo se ajusta aos dados originais usando
+ o erro médio quadrático:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.metrics import mean_squared_error
+\end_layout
+
+\begin_layout Plain Layout
+
+print(mean_squared_error(linreg.predict(x),y))
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: 0.0202788893782
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Esta métrica mede o quadrado da distância esperada entre a predição e os
+ verdadeiros dados.
+ É 0 (zero) quando a predição é perfeita.
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Parte 5 - Correlação
+\end_layout
+
+\begin_layout Standard
+\noindent
+Estudamos a correlação para entender como e se pares de variáveis estão
+ fortemente relacionados.
+ Este tipo de análise nos ajuda a localizar as variáveis criticamente importante
+s das quais outros dependem.
+ A melhor medida de correlação é o coeficiente de correlação produto-momento
+ de Pearson.
+ É obtido dividindo a covariância das duas variáveis pelo produto dos seus
+ desvios padrão.
+ Podemos calcular este índice entre cada par de variáveis para o conjunto
+ de dados das flores íris da seguinte forma: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=126, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+corr = np.corrcoef(data.T) # T.
+ dá a transposição
+\end_layout
+
+\begin_layout Plain Layout
+
+print(corr)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Gerando a seguinte saída:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[[1.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.10936925
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.87175416
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.81795363
+\begin_inset space ~
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[-0.10936925
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.4205161
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.35654409]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[0.87175416
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.4205161
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9627571
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+[0.81795363
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-0.35654409
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.9627571
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.
+ 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+]]
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A função 
+\series bold
+\shape italic
+corrcoef
+\series default
+\shape default
+ retorna uma matriz simétrica de coeficientes de correlação calculados a
+ partir de uma matriz de entrada em que as linhas são variáveis e colunas
+ são observações.
+ Cada elemento da matriz representa a correlação entre duas variáveis.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A correlação é positiva quando os valores aumentam em conjunto.
+ É negativo quando um valor diminui à medida que os outros aumentam.
+ Em particular, temos que 1 é uma correlação positiva perfeita, 0 (zero)
+ não há correlação e -1 é uma correlação negativa perfeita.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Quando o número de variáveis cresce podemos visualizar convenientemente
+ a matriz de correlação utilizando uma plotagem pseudocores (pseudocolor):
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import pylab as pl
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.pcolor(corr)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.colorbar() # adicionar barra de cores
+\end_layout
+
+\begin_layout Plain Layout
+
+# organiza os nomes das variáveis nos eixos cartesianos
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.xticks(np.arange(0.5, 4.5), ['sepal length', 'sepal width', 'petal length',
+ 'petal width'], fontsize=6)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.yticks(np.arange(0.5, 4.5), ['sepal length', 'sepal width', 'petal length',
+ 'petal width'], fontsize=6)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.grid(True)
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.title('Coeficiente de correlacao plantas Iris')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A imagem seguinte mostra o resultado:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename figuras/06-correlation.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Coeficiente de Correlação
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Olhando para a barra de cores à direita da figura, podemos associar a cor
+ na plotagem para um valor numérico.
+ Neste caso, o vermelho é associado com altos valores de correlação positiva
+ e podemos ver que a correlação mais forte em nosso conjunto de dados é
+ entre as variáveis "largura da pétala (petal width)" e "comprimento pétala
+ (petal length)".
+ 
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Parte 6 - Redução de dimensionalidade
+\end_layout
+
+\begin_layout Standard
+\noindent
+Na primeira parte deste estudo, vimos como visualizar duas dimensões do
+ conjunto de dados das flores íris.
+ Com esse método sozinho, temos uma visão de apenas uma parte do conjunto
+ de dados.
+ Uma vez que o número máximo de dimensões que podemos plotar, ao mesmo tempo,
+ é 3, para ter uma visão global dos dados é necessário incorporar todos
+ os dados em um número de dimensões que podemos visualizar.
+ Este processo de incorporação é chamado de redução de dimensionalidade.
+ Uma das mais famosas técnicas de redução de dimensionalidade é a Análise
+ de Componentes Principais (PCA).
+ Esta técnica transforma as variáveis de nossos dados em um número igual
+ ou menor de variáveis não correlacionadas chamados componentes principais
+ (PCs).
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Por sua vez, a biblioteca 
+\series bold
+sckit-learn
+\series default
+ fornece-nos tudo o que precisamos para realizar nossa análise: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+from sklearn.decomposition import PCA
+\end_layout
+
+\begin_layout Plain Layout
+
+pca = PCA(n_components=2)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.1cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+No código acima, instanciamos um objeto PCA que podemos usar para calcular
+ os dois primeiros PCs.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A transformação é calculado como se segue:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+pcad = pca.fit_transform(data)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.1cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+E podemos plotar o resultado, como de costume: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import pylab as pl
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(pcad[target_names == 'setosa', 0], pcad[target_names == 'setosa',
+ 1], 'bo')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(pcad[target_names == 'versicolor', 0], pcad[target_names == 'versicolor',
+ 1], 'ro')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.plot(pcad[target_names == 'virginica', 0], pcad[target_names == 'virginica',
+ 1], 'go')
+\end_layout
+
+\begin_layout Plain Layout
+
+pl.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.1mm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O resultado é o seguinte:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename figuras/07-reducao.png
+	width 75col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Redução de dimensionalidade
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Notamos que a figura acima é semelhante ao proposto na primeira parte, mas
+ desta vez a separação entre a espécie versicolor (em vermelho) e da espécie
+ virginica (em verde) é mais clara.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O PCA projeta os dados em um espaço onde a variância é maximizada e podemos
+ determinar a quantidade de informação armazenada nos PCs olhando para a
+ razão de variância: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(pca.explained_variance_ratio_)
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: [ 0.92461621  0.05301557]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Agora sabemos que o primeiro PC responde por 92% das informações do conjunto
+ de dados original, enquanto o segundo representa os restantes 5%.
+ Nós também podemos imprimir a quantidade de informação que perdemos durante
+ o processo de transformação: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(1-sum(pca.explained_variance_ratio_))
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: 0.0223682249752
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Neste caso, perdemos 2% da informação.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Neste ponto, podemos aplicar a transformação inversa para obter os dados
+ originais de volta:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+data_inv = pca.inverse_transform(pcad)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Sem dúvida, a transformação inversa não nos dá exatamente os dados originais,
+ devido à perda de informação.
+ Podemos estimar quanto o resultado do inverso é provável para os dados
+ originais da seguinte forma:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+print(abs(sum(sum(data - data_inv))))
+\end_layout
+
+\begin_layout Plain Layout
+
+# Saída: 2.88657986403e-15
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Temos que a diferença entre os dados originais e à aproximação calculado
+ com a transformação inversa está perto de zero.
+ É interessante notar a quantidade de informação que se pode preservar,
+ variando o número de componentes principais: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i in range(1, 5):
+\end_layout
+
+\begin_layout Plain Layout
+
+    pca = PCA(n_components=i)
+\end_layout
+
+\begin_layout Plain Layout
+
+    pca.fit(data)
+\end_layout
+
+\begin_layout Plain Layout
+
+    print("{0:1d} {1:11} = {2:.5f}%".format(i, "componente" if i == 1 else
+ "componentes", sum(pca.explained_variance_ratio_) * 100))
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A saída deste código é a seguinte: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+1 componente 
+\begin_inset space ~
+\end_inset
+
+= 92.46162%
+\end_layout
+
+\begin_layout Plain Layout
+2 componentes = 97.76318%
+\end_layout
+
+\begin_layout Plain Layout
+3 componentes = 99.48169%
+\end_layout
+
+\begin_layout Plain Layout
+4 componentes = 100.00000%
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Quanto mais PCs usamos mais a informação é preservada, mas esta análise
+ nos ajuda a entender quantos componentes podemos usar para salvar uma certa
+ quantidade de informações.
+ Por exemplo, a partir da saída do código acima, podemos ver que no conjunto
+ de dados das flores Iris podemos economizar quase 100% da informação usando
+ apenas três PCs.
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Parte 7 - Mineração de dados em redes
+\end_layout
+
+\begin_layout Standard
+\noindent
+Muitas vezes, os dados que temos que analisar é estruturado na forma de
+ redes, por exemplo nossos dados poderiam descrever as amizades entre um
+ grupo de usuários do Facebook ou as co-autorias de artigos entre os cientistas.
+ Aqui, os objetos para estudos são descritos por nós e por arestas que descrevem
+ conexões entre eles.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Nesta parte, veremos os passos básicos para a análise desse tipo de dados
+ usando NetworkX, que é uma biblioteca que nos ajuda na criação, a manipulação
+ e o estudo das redes.
+ Em particular, vamos ver como usar uma medida de centralidade, a fim de
+ construir uma visualização significativa dos dados e como encontrar um
+ grupo de nós, onde as conexões são densas.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Precisamos de uma rede para explorar.
+ Poderíamos construir uma adicionando nós e arestas um de cada vez, mas
+ a NetworkX pode ler dados em muitos formatos diferentes e analisá-lo em
+ sua representação gráfico interna.
+ Um formato padrão de dados de rede é o formato de texto Graph Modeling
+ Language (GML).
+ Existem vários repositórios públicos de dados de rede interessantes formatados
+ em GML; de um destes nós utilizaremos um gráfico das relações entre os
+ personagens do romance Les Miserables - 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://gephi.org/datasets/lesmiserables.gml.zip"
+target "https://gephi.org/datasets/lesmiserables.gml.zip"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+No entanto, este conjunto de dados está formatado de maneira que será lido
+ somente com a versão 1.9.1 e anteriores da NetworkX.
+ Felizmente, podemos reformatá-lo para que as versões mais novas desta bibliotec
+a possam executar as análises como esperado.
+ No apêndice encontra-se o procedimento para adequação do formato GML.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Usando NetworkX, podemos facilmente importar os dados estruturados em GML
+ e visualizar a rede carregada: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=1, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+import networkx as nx
+\end_layout
+
+\begin_layout Plain Layout
+
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+G = nx.read_gml('lesmiserables.gml') # lê o arquivo gml
+\end_layout
+
+\begin_layout Plain Layout
+
+nx.draw_networkx(G, alpha = 0.5, font_size = 10) # desenha a rede
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show() # plota em tela o gráfico da rede
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+O resultado deve ser o seguinte:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename figuras/08-network.png
+	width 85col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Rede Les Miserables
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Nesta rede cada nó representa um personagem do romance e a conexão entre
+ dois personagens representa a aparição no mesmo capítulo.
+ É fácil ver que o gráfico não é realmente útil.
+ A maioria dos detalhes da rede ainda estão ocultas e é impossível compreender
+ quais são os nós mais importantes.
+ A fim de ganhar alguns insights sobre os nossos dados, podemos estudar
+ o grau dos nós.
+ O grau de um nó é considerado uma das mais simples medidas de centralidade
+ e que consiste do número de ligações que um nó tem.
+ Podemos resumir a distribuição de graus de uma rede verificando os seus
+ valores de máximo, mínimo, mediana, primeiro quartil e terceiro quartil:
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+deg = nx.degree(G)
+\end_layout
+
+\begin_layout Plain Layout
+
+values = list(deg.values())
+\end_layout
+
+\begin_layout Plain Layout
+
+print(np.min(values))
+\end_layout
+
+\begin_layout Plain Layout
+
+print(np.percentile(values, 25)) # calcula o primeiro quartil
+\end_layout
+
+\begin_layout Plain Layout
+
+print(np.median(values))
+\end_layout
+
+\begin_layout Plain Layout
+
+print(np.percentile(values, 75)) # calcula o terceiro quartil
+\end_layout
+
+\begin_layout Plain Layout
+
+print(np.max(values))
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Saída:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\begin_layout Plain Layout
+2.0
+\end_layout
+
+\begin_layout Plain Layout
+6.0
+\end_layout
+
+\begin_layout Plain Layout
+10.0
+\end_layout
+
+\begin_layout Plain Layout
+36
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A partir desta análise, podemos decidir observar apenas os nós com um grau
+ maior do que 10.
+ A fim de exibir somente os nós podemos criar um novo gráfico com apenas
+ os nós que queremos visualizar: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+Gt = G.copy()
+\end_layout
+
+\begin_layout Plain Layout
+
+dn = nx.degree(Gt)
+\end_layout
+
+\begin_layout Plain Layout
+
+for n in Gt.nodes():
+\end_layout
+
+\begin_layout Plain Layout
+
+    if dn[n] <= 10:
+\end_layout
+
+\begin_layout Plain Layout
+
+        Gt.remove_node(n)
+\end_layout
+
+\begin_layout Plain Layout
+
+nx.draw_networkx(Gt, alpha = 0.5, font_size = 10) # desenha a rede
+\end_layout
+
+\begin_layout Plain Layout
+
+plt.show()
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+A imagem abaixo mostra o resultado:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Graphics
+	filename figuras/09-network.png
+	width 100col%
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Rede 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Desta vez, o gráfico é mais legível.
+ Somos capazes de observar os personagens mais relevantes e seus relacionamentos.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Também é interessante estudar a rede através da identificação dos seus cliques.
+ Um clique é um grupo em que um nó é conectado a todos os outros e um clique
+ máximo é um clique que não é um subconjunto de qualquer outra clique na
+ rede.
+ Podemos encontrar todos os cliques máximos da nossa rede da seguinte forma:
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{code}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, linenos, firstnumber=last, frame=lines, fontsize=
+\backslash
+footnotesize, autogobble]{python}
+\end_layout
+
+\begin_layout Plain Layout
+
+cliques = list(nx.find_cliques(G))
+\end_layout
+
+\begin_layout Plain Layout
+
+print(max(cliques, key=lambda l: len(l)))
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+captionof{listing}{Cojunto de dados sintético}
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+label{codigo-06}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{code}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+e podemos visualizar o maior clique na seguinte saída:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+[u'Joly', u'Gavroche', u'Bahorel', u'Enjolras', u'Courfeyrac', u'Bossuet',
+ u'Combeferre', u'Feuilly', u'Prouvaire', u'Grantaire']
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Podemos ver que a maioria dos nomes na lista são os mesmos do cluster de
+ nós do gráfico anterior.
+\end_layout
+
+\begin_layout Chapter*
+\noindent
+Parte 8 - Apêndice
+\end_layout
+
+\begin_layout Section*
+Instalando as bibliotecas Python
+\end_layout
+
+\begin_layout Standard
+\noindent
+Este guia assume que já existe um ambiente Python instalado e executando.
+ O comando 
+\series bold
+\shape italic
+pip
+\series default
+\shape default
+ também está disponível.
+ Se necessário, consulte o site do 
+\begin_inset CommandInset href
+LatexCommand href
+name "pip - https://pip.pypa.io/en/stable/installing/"
+target "https://pip.pypa.io/en/stable/installing/"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Consultando versão instalada do pip:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, frame=single, fontsize=
+\backslash
+footnotesize, autogobble]{shell-session}
+\end_layout
+
+\begin_layout Plain Layout
+
+$ pip --version
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+ou
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, frame=single, fontsize=
+\backslash
+footnotesize, autogobble]{shell-session}
+\end_layout
+
+\begin_layout Plain Layout
+
+$ pip3 --version
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Atualizando o pip:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, frame=single, fontsize=
+\backslash
+footnotesize, autogobble]{shell-session}
+\end_layout
+
+\begin_layout Plain Layout
+
+$ pip install -U pip
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+ou
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, frame=single, fontsize=
+\backslash
+footnotesize, autogobble]{shell-session}
+\end_layout
+
+\begin_layout Plain Layout
+
+$ pip install --upgrade pip
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Instalando módulos:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, frame=single, fontsize=
+\backslash
+footnotesize, autogobble]{shell-session}
+\end_layout
+
+\begin_layout Plain Layout
+
+$ pip install <nome_do_modulo>
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Procurando módulos do pip:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{minted}[breaklines, frame=single, fontsize=
+\backslash
+footnotesize, autogobble]{shell-session}
+\end_layout
+
+\begin_layout Plain Layout
+
+$ pip search <nome>
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{minted}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+\noindent
+Reformatando arquivos GML 
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Makan2015"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Formato suportado pela NetworkX até a versão 1.9.1: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\begin_layout Plain Layout
+
+graph 
+\end_layout
+
+\begin_layout Plain Layout
+
+[
+\end_layout
+
+\begin_layout Plain Layout
+
+  directed 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  node 
+\end_layout
+
+\begin_layout Plain Layout
+
+  [
+\end_layout
+
+\begin_layout Plain Layout
+
+    id 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    label "Beak"
+\end_layout
+
+\begin_layout Plain Layout
+
+  ]
+\end_layout
+
+\begin_layout Plain Layout
+
+  .
+\end_layout
+
+\begin_layout Plain Layout
+
+  .
+\end_layout
+
+\begin_layout Plain Layout
+
+  .
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Formato suportado pelas versões mais recentes, a partir da versão 1.9.1: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{verbatim}
+\end_layout
+
+\begin_layout Plain Layout
+
+graph [
+\end_layout
+
+\begin_layout Plain Layout
+
+  directed 0
+\end_layout
+
+\begin_layout Plain Layout
+
+  node [
+\end_layout
+
+\begin_layout Plain Layout
+
+    id 0
+\end_layout
+
+\begin_layout Plain Layout
+
+    label "Beak"
+\end_layout
+
+\begin_layout Plain Layout
+
+  ]
+\end_layout
+
+\begin_layout Plain Layout
+
+  .
+\end_layout
+
+\begin_layout Plain Layout
+
+  .
+\end_layout
+
+\begin_layout Plain Layout
+
+  .
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{verbatim}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Para formatar o conteúdo do arquivo gml e deixá-lo no formato suportado
+ pelas versões mais recentes da NetworkX, substitua os caracteres fim de
+ linha e abre colchetes (
+\backslash
+n [) por um espaço seguido de um abre colchetes ( [).
+ Utilizando um editor de textos que permite substituir caracteres invisíveis,
+ como o Notepad++ no Windows, TextWrangler no macOS ou o Vim no Linux, substitua
+ as seguintes sequências de caracteres:
+\end_layout
+
+\begin_layout Itemize
+\noindent
+
+\series bold
+\shape italic
+fim de linha
+\series default
+\shape default
+, seguido por 
+\series bold
+\shape italic
+um abre colchetes
+\series default
+\shape default
+: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Verbatim*
+
+
+\backslash
+n
+\end_layout
+
+\begin_layout Verbatim*
+
+[
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+e
+\series bold
+ 
+\shape italic
+fim de linha
+\series default
+\shape default
+, seguido de 
+\shape italic
+dois espaços
+\shape default
+ e 
+\series bold
+\shape italic
+um abre colchetes
+\series default
+\shape default
+:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Verbatim*
+
+
+\backslash
+n
+\end_layout
+
+\begin_layout Verbatim*
+
+  [
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+por 
+\series bold
+\shape italic
+um espaço
+\series default
+\shape default
+ seguido de 
+\series bold
+\shape italic
+um abre colchetes
+\series default
+\shape default
+:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Verbatim*
+
+ [
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+vspace{.2cm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Substitua cada sequência uma por vez!
+\end_layout
+
+\begin_layout Section*
+\noindent
+Vídeo sobre mineração de dados no governo federal
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset CommandInset href
+LatexCommand href
+name "Big Data no Planalto: como o governo minera datasets gigantescos para reprimir crimes (https://www.infoq.com/br/presentations/big-data-no-planalto-como-o-governo-minera-datasets)"
+target "https://www.infoq.com/br/presentations/big-data-no-planalto-como-o-governo-minera-datasets"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintCited"
+bibfiles "bibliografia"
+options "acm"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
