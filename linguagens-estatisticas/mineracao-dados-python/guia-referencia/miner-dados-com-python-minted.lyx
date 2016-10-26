@@ -4333,13 +4333,27 @@ vspace{.2cm}
 
 \begin_layout Standard
 \noindent
-Agora podemos usar o modelo de LinearRegression que encontramos no módulo
- sklearn.linear_model.
+Agora podemos usar o modelo de 
+\series bold
+\shape italic
+LinearRegression
+\series default
+\shape default
+ que encontramos no módulo 
+\series bold
+\shape italic
+sklearn.linear_model
+\series default
+\shape default
+.
  Este modelo calcula a linha de melhor ajuste para os dados observados,
  minimizando a soma dos quadrados dos desvios verticais a partir de cada
  ponto de dados para a linha.
- O uso é semelhante aos outros modelos implementados em sckit-learn que
- foi visto previamente: 
+ O uso é semelhante aos outros modelos implementados em 
+\series bold
+scikit-learn
+\series default
+ que foi visto previamente: 
 \end_layout
 
 \begin_layout Standard
@@ -5369,7 +5383,7 @@ vspace{.2cm}
 \noindent
 Por sua vez, a biblioteca 
 \series bold
-sckit-learn
+scikit-learn
 \series default
  fornece-nos tudo o que precisamos para realizar nossa análise: 
 \end_layout
