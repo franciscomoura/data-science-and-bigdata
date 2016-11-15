@@ -3,7 +3,7 @@
 ** Aluno 1: Eu **
 db.Alunos.insert({
 	"nome": "Francisco Moura",
-	"data_nascimento":ISODate("1971-05-14"),
+	"data_nascimento":ISODate("2001-01-14"),
 	"disciplinas_cursadas": [
 		{disciplina: "Introdução às linguagens estaíticas"},
 		{disciplina: "Ciência de dados e big data em negócios"}
@@ -18,7 +18,7 @@ db.Alunos.insert({
 ** Aluno 2: colega 1 **
 db.Alunos.insert({
 	"nome": "Willian Hofner",
-	"data_nascimento":ISODate("1965-07-09"),
+	"data_nascimento":ISODate("2000-01-09"),
 	"disciplinas_cursadas": [
 		{"disciplina": "Introdução às linguagens estaíticas"},
 		{"disciplina": "Ciência de dados e big data em negócios"}
@@ -32,7 +32,7 @@ db.Alunos.insert({
 ** Aluno 3: colega 2 **
 db.Alunos.insert({
 	"nome": "João Henrique",
-	"data_nascimento":ISODate("1971-05-09"),
+	"data_nascimento":ISODate("2001-01-09"),
 	"disciplinas_cursadas": [
 		{"disciplina": "Introdução às linguagens estaíticas"},
 		{"disciplina": "Ciência de dados e big data em negócios"}
