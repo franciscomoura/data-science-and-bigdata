@@ -47,7 +47,7 @@ You can see some [example output from this function](https://d396qusza40orc.clou
 The function that you write should be able to match this output. Please save your code to a file named corr.R. To run the submit script for this part, make sure your working directory has the file corr.R in it.
 
 ### External references
-1. [specdata.zip [2.4MB]](https://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip)
+1. [specdata.zip [~3MB]](https://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip)
 2. [Pollutantmean function output demo](https://d396qusza40orc.cloudfront.net/rprog%2Fdoc%2Fpollutantmean-demo.html)
 3. [Complete funcion output demo](https://d396qusza40orc.cloudfront.net/rprog%2Fdoc%2Fcomplete-demo.html)
 4. [Corr function output demo](https://d396qusza40orc.cloudfront.net/rprog%2Fdoc%2Fcorr-demo.html)
