@@ -8,3 +8,5 @@ Solutions of the homeworks and others subjects of interesting and studies.
 
 ## Disciplina Banco de dados NoSQL
 1. [Exercícios da aula 2] (https://github.com/franciscomoura/data-science-and-bigdata/tree/master/banco-dados-nosql/aula02) - Operações básicas no MongoDB
+
+2. [Exercício da aula 3] (https://github.com/franciscomoura/data-science-and-bigdata/tree/master/banco-dados-nosql/aula03) - MapReduce e Agregação
