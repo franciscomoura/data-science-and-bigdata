@@ -9,3 +9,6 @@ As notas de aulas podem ser encontradas no repositório do GitHub do professor [
    
 2. [Exercícios da aula 03] (https://github.com/franciscomoura/data-science-and-bigdata/blob/master/banco-dados-nosql/aula03/README.md) - MapReduce e Agregação
   * Referência - [Aula 03] (https://github.com/gcouti/nosql-class/blob/master/aula3/aula3.pdf)
+
+3. [Exercícios da aula 04] (https://github.com/franciscomoura/data-science-and-bigdata/tree/master/banco-dados-nosql/aula04) - Índices
+  * Referência - [Aula 04] (https://github.com/gcouti/nosql-class/blob/master/aula4/Aula%204%20-%20Arquitetura%20e%20%C3%ADndices.pdf)
