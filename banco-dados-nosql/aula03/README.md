@@ -1,5 +1,12 @@
-#####Exercício 1
-######A) Utilizando as funções de mapReduce do mongo, conte o número de palavras que terminam em ar, er, ir, or, ur.
+#### Intruções:
+* Copie e cole o código no shell do mongoDB; ou 
+* Execute os arquivos .js usando a função load diretamento no shell do mongoDB:
+```Bash
+load("path/arquivo.js")
+```
+
+##### Exercício 1
+###### A) Utilizando as funções de mapReduce do mongo, conte o número de palavras que terminam em ar, er, ir, or, ur.
 ```JavaScript
 
 // função de mapeamento - map
@@ -38,7 +45,7 @@ cursor.close();
 
 ```
 
-######B) Utilizando as funções de mapReduce do mongo, conte o total de cada caracter existente no vocabulario. Por exemplo: aula -> a:2, u:1, l:1
+###### B) Utilizando as funções de mapReduce do mongo, conte o total de cada caracter existente no vocabulario. Por exemplo: aula -> a:2, u:1, l:1
 ```JavaScript
 
 // função de mapeamento - map
@@ -80,3 +87,28 @@ while (cursor.hasNext()) {
 cursor.close();
 
 ```    
+
+##### Exercício 2
+###### Utilizando a função de agregação contar quantos itens cujo o campo total seja maior do que 1000, agrupando-os por tipo, (campo type) e exiba o resultado em ordem crescente.
+
+```JavaScript
+var result_cursor = db.Vocabulary.aggregate([
+        { $match: { total: { $gt: 1000 } } },
+        {
+            $group: {
+                _id: { type: "$type" },
+                qty: { $sum: 1 }
+            }
+        },
+        { $sort: { "_id.type": 1 } }
+    ]);
+
+result_cursor.pretty();
+
+while (result_cursor.hasNext()) {
+    printjson(result_cursor.next());
+}
+
+result_cursor.close();
+
+```
