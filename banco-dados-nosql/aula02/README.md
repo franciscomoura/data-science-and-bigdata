@@ -1,3 +1,6 @@
+##### Instruções:
+* Copie e cole o código no shell do mongoDB;
+
 ##### 01) Insira no banco informações sobre você e seus colegas como nome, data de nascimento, disciplinas cursadas e em curso na PUC.
 
 ###### Aluno 1: Eu
