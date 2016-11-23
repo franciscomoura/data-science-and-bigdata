@@ -1,4 +1,8 @@
 ### Resolução de exercícios
+#### Instrções:
+* Execute o código na base de dados que contém a collection Vocabulary.
+* Copie e cole o código no shell do mongoDB.
+
 #### Faça uma pesquisa simples na coleção *Vocabulary* pelo termo “feliz” no campo *text* e responda:
 * A) Número de documentos que foi escaneado
 * B) Tempo que levou para fazer a consulta
