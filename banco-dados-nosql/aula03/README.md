@@ -40,6 +40,7 @@ cursor.close();
 
 ######B) Utilizando as funções de mapReduce do mongo, conte o total de cada caracter existente no vocabulario. Por exemplo: aula -> a:2, u:1, l:1
 ```JavaScript
+
 // função de mapeamento - map
 var map_fn = function() {
     if (this.text == undefined) return;
@@ -70,9 +71,12 @@ print("Resultado do processamento:");
 printjson(result);
 
 print("Contagem dos caracteres:")
-// imprimir todo o cursor: quando o código é executado com a função load()
+var cursor = db.conta_caracteres.find({});
 while (cursor.hasNext()) {
     printjson(cursor.next())
 }
+
+// fechar cursor
+cursor.close();
 
 ```    
