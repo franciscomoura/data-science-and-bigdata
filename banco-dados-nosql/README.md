@@ -12,3 +12,6 @@ As notas de aulas podem ser encontradas no repositório do GitHub do professor [
 
 3. [Exercícios da aula 04] (https://github.com/franciscomoura/data-science-and-bigdata/tree/master/banco-dados-nosql/aula04) - Índices
   * Referência - [Aula 04] (https://github.com/gcouti/nosql-class/blob/master/aula4/Aula%204%20-%20Arquitetura%20e%20%C3%ADndices.pdf)
+  
+4. [Exercícios da aula 05] (https://github.com/franciscomoura/data-science-and-bigdata/tree/master/banco-dados-nosql/aula05) - Casos de uso
+  * Referência - [Aula 05] (https://github.com/gcouti/nosql-class/blob/master/aula5/Aula%205%20-%20Casos%20de%20uso.pdf)
