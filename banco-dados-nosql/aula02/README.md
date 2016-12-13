@@ -117,22 +117,31 @@ informando o tipo da palavra.
 ##### Solução
 * `a) Liste as dez palavras com o maior valor no campos total e as imprima na tela.`
 ```Python
+# -*- coding: utf-8 -*-
+'''
+Created on Dec 12, 2016
+
+@author: Francisco Moura
+'''
+
 import pymongo
 
-if __name__ == "__main__":
-
+if __name__ == '__main__':
     client = pymongo.MongoClient('localhost', 27017)
     db = client.nosqlclass
-    
+
+    # Liste as dez palavras com o maior valor no campos total e as imprima na tela.
     result = db.Vocabulary.find({}).sort("total", pymongo.DESCENDING).limit(10)
-    print('{0:10} {1:10}'.format('Palavra', 'Total'))
+    print('{0:10} {1:10}'.format('Palavra', 'Quantidade'))
+    print('{0:10} {1:10}'.format('--------', '----------'))
     for word in result:
-        print('{0:<10} {1:7,d}'.format(word['text'], word['total']).replace(',','.'))
+        print('{0:<10} {1:7,d}'.format(word['text'], word['total']).replace(',', '.'))
 ```
 `Resultado:`
 ```Bash
 >>>
-Palavra    Total
+Palavra    Quantidade
+--------   ----------
 rt         202.375
 e          189.464
 no         164.138
@@ -145,46 +154,130 @@ em          90.408
 has         86.989
 ```
 * `b) Encontre todas as palavras que são usuários do twitter, hashtags, urls e adicione um campo
-informando o tipo da palavra` e
-* `Conte o total de cada um dos tipos que você criou`
+informando o tipo da palavra`
 ```Python
+# -*- coding: utf-8 -*-
+'''
+Created on Dec 12, 2016
+
+@author: Francisco Moura
+'''
+
 import pymongo
 
-if __name__ == "__main__":
-
+if __name__ == '__main__':
     client = pymongo.MongoClient('localhost', 27017)
     db = client.nosqlclass
 
+    # Encontre todas as palavras que são usuários do twitter, hashtags,
+    # urls e adicione um campo informando o tipo da palavra.
     count_users = 0
     count_hastags = 0
     count_urls = 0
 
     result = db.Vocabulary.find({
-        '$or' : [
-            {'text': {'$regex' : '^@'}},
-            {'text': {'$regex' : '^#'}},
-            {'text': {'$regex' : '^http://'}},
-            {'text': {'$regex' : '^www'}}
+        '$or': [
+            {'text': {'$regex': '^@'}},
+            {'text': {'$regex': '^#'}},
+            {'text': {'$regex': '^http'}},
+            {'text': {'$regex': '^www'}}
         ]
-        })
-    for word in result:
-        if (word['text'].find('@') != -1):
-            print('{0:<25s} {1:s}'.format(word['text'], 'Usuário'))
-            count_users += 1
-        elif (word['text'].find('#') != -1):
-            print('{0:<25s} {1:s}'.format(word['text'], 'Hastag'))
-            count_hastags += 1
-        elif (word['text'].find('http://') != -1 or word['text'].find('www.') != -1):
-            print('{0:<25s} {1:s}'.format(word['text'], 'URL'))
-            count_urls += 1
+    })
 
-    print('{0:20s} {1:7,d} '.format('Total usuários: ', count_users).replace(',','.'))
-    print('{0:20s} {1:7,d} '.format('Total hastags: ', count_hastags).replace(',','.'))
-    print('{0:20s} {1:7,d} '.format('Total URLs: ', count_urls).replace(',','.')) 
+    # Tipo: Usuário
+    user_cursor = db.Vocabulary.aggregate([
+        {'$match': {'text': {'$regex': '^@'}}},
+        {'$project': {'_id': 0, 'text': 1, 'tipo': {'$literal': 'Usuário'}}}
+    ])
+
+    for user in user_cursor:
+        print('{0:<25s} {1:s} '.format(user['text'], user['tipo']))
+
+    # Tipo Hastag
+    hastag_cursor = db.Vocabulary.aggregate([
+        {'$match': {'text': {'$regex': '^#'}}},
+        {'$project': {'_id': 0, 'text': 1, 'tipo': {'$literal': 'Hastag'}}}
+    ])
+
+    for hastag in hastag_cursor:
+        print('{0:<25s} {1:s}'.format(hastag.get('text'), hastag.get('tipo')))
+
+    # Tipo URL
+    url_cursor = db.Vocabulary.aggregate([
+        {'$match': {
+            '$or': [
+                {'text': {'$regex': '^http'}},
+                {'text': {'$regex': '^www'}}
+            ]
+        }},
+        {'$project': {'_id': 0, 'text': 1, 'tipo': {'$literal': 'URL'}}}
+    ])
+
+    for url in url_cursor:
+        print('{0:<25s} {1:s}'.format(url.get('text'),  url.get('tipo')))
 ```
-`Resultado`
+
+* `c) Conte o total de cada um dos tipos que você criou`
+```Python
+# -*- coding: utf-8 -*-
+'''
+Created on Dec 12, 2016
+
+@author: Francisco Moura
+'''
+
+import pymongo
+
+if __name__ == '__main__':
+    client = pymongo.MongoClient('localhost', 27017)
+    db = client.nosqlclass
+
+    # Conte o total de cada um dos tipos que você criou
+    
+    print('{0:10} {1:10}'.format('Tipo', 'Total'))
+    print('{0:10} {1:10}'.format('--------', '----------'))
+    
+    # Total de usuários
+    user_count = db.Vocabulary.aggregate([
+        {'$match': {'text': {'$regex': '^@'}}},
+        {'$project': {'_id': 0, 'text': 1, 'tipo': {'$literal': 'Usuário'}}},
+        {'$group': {'_id': '$tipo', 'total': {'$sum': 1}}}
+    ])
+
+    for user in user_count:
+        print('{0:<10s} {1:7,d} '.format(user.get('_id'), user.get('total')).replace(',','.'))
+
+    # Total de hastags
+    hastag_count = db.Vocabulary.aggregate([
+        {'$match': {'text': {'$regex': '^#'}}},
+        {'$project': {'_id': 0, 'text': 1, 'tipo': {'$literal': 'Hastag'}}},
+        {'$group': {'_id': '$tipo', 'total': {'$sum': 1}}}
+    ])
+
+    for hastag in hastag_count:
+        print('{0:<10s} {1:7,d}'.format(hastag.get('_id'), hastag.get('total')).replace(',','.'))
+
+    # Total URL
+    url_count = db.Vocabulary.aggregate([
+        {'$match': {
+            '$or': [
+                {'text': {'$regex': '^http'}},
+                {'text': {'$regex': '^www'}}
+            ]
+        }},
+        {'$project': {'_id': 0, 'text': 1, 'tipo': {'$literal': 'URL'}}},
+        {'$group': {'_id': '$tipo', 'total': {'$sum': 1}}}
+    ])
+
+    for url in url_count:
+        print('{0:<10s} {1:7,d}'.format(url.get('_id'), url.get('total')).replace(',','.'))
+
+```
+`Resultado:`
 ```Bash
-Total usuários:       89.813
-Total hastags:        11.109
-Total URLs:              113
+Tipo       Total     
+--------   ----------
+Usuário     89.813 
+Hastag      11.109
+URL         80.370
 ```
