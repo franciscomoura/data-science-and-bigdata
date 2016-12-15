@@ -169,7 +169,8 @@ if __name__ == '__main__':
     client = pymongo.MongoClient('localhost', 27017)
     db = client.nosqlclass
 
-    # Encontre todas as palavras que são usuários do twitter, hashtags, urls e adicione um campo informando o tipo da palavra.
+    # Encontre todas as palavras que são usuários do twitter, hashtags, 
+    # urls e adicione um campo informando o tipo da palavra.
     
     # Tipo: Usuário
     user_cursor = db.Vocabulary.aggregate([
