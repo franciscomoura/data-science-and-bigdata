@@ -169,21 +169,8 @@ if __name__ == '__main__':
     client = pymongo.MongoClient('localhost', 27017)
     db = client.nosqlclass
 
-    # Encontre todas as palavras que são usuários do twitter, hashtags,
-    # urls e adicione um campo informando o tipo da palavra.
-    count_users = 0
-    count_hastags = 0
-    count_urls = 0
-
-    result = db.Vocabulary.find({
-        '$or': [
-            {'text': {'$regex': '^@'}},
-            {'text': {'$regex': '^#'}},
-            {'text': {'$regex': '^http'}},
-            {'text': {'$regex': '^www'}}
-        ]
-    })
-
+    # Encontre todas as palavras que são usuários do twitter, hashtags, urls e adicione um campo informando o tipo da palavra.
+    
     # Tipo: Usuário
     user_cursor = db.Vocabulary.aggregate([
         {'$match': {'text': {'$regex': '^@'}}},
